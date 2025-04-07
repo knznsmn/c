@@ -4,6 +4,7 @@
 #include "../../functions/strings.c"
 
 void header(FILE *f, char **argv);
+void cmd(char *s, char *f);
 
 #define BUFFER_SIZE 32
 
@@ -15,7 +16,6 @@ int main(int argc, char **argv) {
 
   // Starts sorting out the argv's
   else {
-    char cmd[BUFFER_SIZE];
     char dir[BUFFER_SIZE];
     char fil[BUFFER_SIZE];
 
@@ -23,11 +23,16 @@ int main(int argc, char **argv) {
     int length = ft_strlen(argv[1]);
     if (argc == 2 && ((argv[1][length - 1] == 'c') && (argv[1][length - 2] == '.'))) {
       ft_strcpy(fil, argv[1]);
+      ft_puts(fil);
+      ft_puts(argv[1]);
+      cmd(fil, "touch");
     }
 
     // If not,
     else if (argc == 2) {
       ft_strcpy(dir, argv[1]);
+      cmd(dir, "mkdir");
+
     }
 
     // Else if arguments are more than 2,
@@ -38,9 +43,13 @@ int main(int argc, char **argv) {
         int j = 0;
         if (ft_stravz(argv[i], '.')) {
           printf("%s is a file.\n", argv[i]);
+          ft_strcpy(fil, argv[i]);
+          cmd(fil, "touch");
         }
         else {
           printf("%s is a directory.\n", argv[i]);
+          ft_strcpy(dir, argv[i]);
+          cmd(dir, "mkdir");
         }
       }
     }
@@ -69,4 +78,19 @@ int main(int argc, char **argv) {
 
 void header(FILE *f, char **argv) {
   
+}
+
+void cmd(char *s, char *f) {
+  char buffer[BUFFER_SIZE];
+  ft_strcpy(buffer, f);
+  ft_puts(buffer);
+  buffer[ft_strlen(buffer)] += ' ';
+  ft_puts(buffer);
+  ft_strcpy(buffer, s);
+  ft_puts(buffer);
+  buffer[ft_strlen(buffer)] += '\0';
+  ft_puts(buffer);
+  system(buffer);
+  ft_puts(buffer);
+  ft_puts(" created successfully.\n");
 }

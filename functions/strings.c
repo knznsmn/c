@@ -17,6 +17,8 @@ void ft_strcpy(char *n, char *v) {
 		n[i] = v[i]; 
 		i++;
 	}
+  n[i] = '\0';
+  ft_puts(n);
 }
 
 // Checks if an array has a character `a`
@@ -38,5 +40,7 @@ void ft_puts(char *s) {
 	int i = 0;
 	while (s[i] != '\0') {
 		ft_putchar(s[i]);
+    i++;
 	}
+  s[i] = '\n';
 }

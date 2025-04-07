@@ -1,5 +1,12 @@
-#include "strings.c"
+#include <unistd.h>
 
+int ft_strlen(char *s) {
+  int i = 0;
+  while (s[i] != '\0') {
+    i++;
+  }
+  return i;
+}
 
 void ft_puts(char *s) {
   int length = ft_strlen(s);
@@ -8,8 +15,5 @@ void ft_puts(char *s) {
 
 int main() {
 
-  char a = 42;
-  ft_putchar(a);
-  ft_putchar('\n');
   ft_puts("Wow what the hell!\n");
 }
