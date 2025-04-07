@@ -1,3 +1,4 @@
+#include <unistd.h>
 int i = 0;
 
 // Returns the length of an array
@@ -28,4 +29,14 @@ int ft_stravz(char *c, char a) {
 		i++;
 	}
 	return 0;
+}
+
+void ft_putchar(char c) {
+	write(1, &c, 1);
+}
+void ft_puts(char *s) {
+	int i = 0;
+	while (s[i] != '\0') {
+		ft_putchar(s[i]);
+	}
 }
