@@ -5,20 +5,6 @@ void ft_putchar(char c)
 	write(1, &c, 1);
 }
 
-void ft_moses(char c)
-{
-	if (c == 'e')
-	{
-		ft_putchar('.');
-		ft_putchar('\n');
-	}
-	else
-	{
-		ft_putchar(',');
-		ft_putchar(' ');
-	}
-}
-
 void ft_print_comb2()
 {
 	int x;
@@ -35,33 +21,32 @@ void ft_print_comb2()
 		ft_putchar(y);
 		ft_putchar(' ');
 		ft_putchar(m);
-		ft_putchar(n);
-		if (n >= '9')
+		if (n > '9')
 		{
 			m++;
+			ft_putchar(n);
 			n = '0';
 		}
-		if (m == '9' && n == '9')
+		else if (m == '9' && n == '9')
 		{
 			y++;
+			ft_putchar(n);
 			m = '0';
 			n = '0';
 		}
-		if (y > '9')
+		else if (y > '9')
 		{
 			x++;
 			y = '0';
 		}
+		else {
+			ft_putchar(n);
+			n++;	
+		}
+		ft_putchar(',');
+		ft_putchar(' ');
 		
-		if (m == '9' && n == '9')
-		{
-			ft_moses('e');
-		}
-		else
-		{
-			ft_moses('n');
-		}
-		n++;
+		
 	}
 }
 
