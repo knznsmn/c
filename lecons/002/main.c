@@ -24,15 +24,32 @@ int main(void) {
   printf("The size of double is: %zu.\n", sizeof_double);
 
   int x = 0;
+  int y = 0;
   int *p = &x;
 
   x = 42;
-  y = 
+  y = x;
 
   printf("The value of x = %d.\n", x);
+  printf("The value of y = %d.\n", y);
   printf("The address of x is %p.\n", (void *)&x);
   printf("The value of p is %p.\n",(void *)p);
   printf("The value pointed to by p is %d.\n",*p);
+
+  printf("The value of y is %d.\n", y);
+
+  p = &y;
+  printf("p is pointing to the address of y now.\n");
+  printf("The value of p is %p.\n", (void *)p);
+  printf("The value of y is %d.\n", y);
+  printf("The address of y is %p.\n", (void *)&y);
+  printf("The address of p is %p.\n", (void *)&p);
+  printf("The value pointed to by p is %d.\n", *p);
+
+  printf("Let's change the value of y.\n");
+  *p = 1337;
+
+  printf("The value of y now is %d.\n");
 
   return 0;
 }
