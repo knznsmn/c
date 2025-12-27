@@ -12,18 +12,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include <stdio.h>
-
 int main(void) {
-  int x = 0;
-  int y = 0;
-  int *p = &x;
+  int *p = malloc(sizeof *p);
 
-  x = 42;
-  y = x;
-  
-  int y = (int)malloc(sizeof(int));
-  
+  if (p == NULL) {
+    return 1;
+  }
 
-    return 0;
+  *p = 42;
+  printf("The value of p is %d.\n", *p);
+
+  free(p);
+  p = NULL;
+
+  return 0;
 }
