@@ -17,40 +17,26 @@ void print_array(const int *arr, size_t len);
 
 int main(void) {
   
-  int *characters;
-
-  init_array(characters, 6);
-  if (characters == NULL) {
+  int *values = malloc(sizeof *values * 6);
+  if (values == NULL) {
     return 1;
   }
-  print_array(characters, 6);
-  printf("%p\n", characters);
+  init_array(values, 6);
+  print_array(values, 6);
 
-  free(characters);
-  characters = NULL;
+  free(values);
+  values = NULL;
 
   return 0;
 }
 
 void init_array(int *arr, size_t len) {
-  arr = malloc((sizeof *arr) * len);
   for (size_t i = 0; i < len; i++) {
     *(arr + i) = i + 2;
   }
-  for (size_t i = 0; i < len; i++) {
-    printf("%d", *(arr + i));
-    if (i == (len - 1)) {
-      printf(".\n");
-    }
-    else {
-      printf(", ");
-    }
-  }
-  printf("Array successfully allocated.\n");
 }
 
 void print_array(const int *arr, size_t len) {
-  printf("%p\n", arr);
   for (size_t i = 0; i < len; i++) {
     printf("%d\n", *(arr + i));
   }
