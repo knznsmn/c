@@ -9,32 +9,34 @@
 /*   Codes for days.                                                         */
 /*****************************************************************************/
 
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct {
-    char *name;
-    int age;
-} Person;
-
-struct IntArray create_array(size_t length);
-void person_print(const Person *p);
-void person_destroy(Person *p);
+#include <stdio.h>   /* printf, fprintf */
+#include <stdlib.h>  /* exit codes, NULL */
+#include "character.h" /* Character API: create, print, destroy */
 
 int main(void) {
+  /* Create a Character on the heap.
+   * We pass a string literal for the name; the create function copies it.
+   * The returned pointer `c` must be freed with `character_destroy`.
+   */
+  Character *c = character_create("Hrafnkell", 5, 42);
 
+  /* Always check for allocation failure. Many beginners forget this and
+   * encounter crashes when memory is exhausted.
+   */
+  if (!c) {
+    fprintf(stderr, "Failed to create character\n");
+    return 1;
+  }
 
-    return 0;
-}
+  /* Use the character: printing its fields. The function accepts a
+   * `const Character *` since it does not modify the object.
+   */
+  character_print(c);
 
-struct IntArray create_array(size_t length) {
-  
-}
+  /* When finished, free all memory owned by the character. After this call
+   * `c` becomes invalid; in larger programs it's common to set `c = NULL`.
+   */
+  character_destroy(c);
 
-void person_print(const Person *p) {
-  
-
-}
-void person_destroy(Person *p) {
-    
+  return 0; /* success */
 }
