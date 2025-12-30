@@ -12,10 +12,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Person {
-    char *name = malloc(sizeof *name);
+typedef struct {
+    char *name;
     int age;
-}
+} Person;
 
 void person_print(const Person *p);
 void person_destroy(Person *p);
@@ -26,6 +26,7 @@ int main(void) {
     return 0;
 }
 void person_print(const Person *p) {
+  
 
 }
 void person_destroy(Person *p) {
