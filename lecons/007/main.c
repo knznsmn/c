@@ -17,6 +17,7 @@ typedef struct {
     int age;
 } Person;
 
+struct IntArray create_array(size_t length);
 void person_print(const Person *p);
 void person_destroy(Person *p);
 
@@ -25,6 +26,11 @@ int main(void) {
 
     return 0;
 }
+
+struct IntArray create_array(size_t length) {
+  
+}
+
 void person_print(const Person *p) {
   
 
