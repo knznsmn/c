@@ -3,8 +3,8 @@
 /*                                                                           */
 /*   By:      knznsmn                                                        */
 /*   Email:   mail@jccesar.com                                               */
-/*   Created: 2025/12/30 19:10:56                                            */
-/*   Updated: 2025/12/30 19:10:56                                            */
+/*   Created: 2025/12/31 11:23:11                                            */
+/*   Updated: 2025/12/31 14:04:44                                            */
 /*                                                                           */
 /*   Codes for days.                                                         */
 /*****************************************************************************/
@@ -12,36 +12,71 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-enum {
-  SIZE = 64
-};
-
 typedef struct {
   char *name;
   int level;
-  int hp;
-} Character;
+} Player;
 
-Character character_create(const char *name, int level, int hp);
-void character_print(const Character *c);
-void character_destroy(Character *c);
+void ft_free(char *s);
+size_t ft_strlen(const char *s);
+int ft_strcp(char *s1, const char *s2);
+Player *player_create(const char *name);
+void player_destroy(Player *p);
 
 int main(void) {
+  char *name = "Hrafnkell";
+  Player *hrafnkell = player_create(name);
 
+  if (hrafnkell == NULL) {
+    return 1;
+  }
   
+  printf("Player %s(lv%d) created.\n", hrafnkell->name, hrafnkell->level);
+  player_destroy(hrafnkell);
+
   return 0;
 }
 
-Character character_create(const char *name, int level, int hp) {
-
+size_t ft_strlen(const char *s) {
+  size_t i = 0;
+  for (i = 0; *(s + i) != '\0'; i++) {
+  }
+  return i;
 }
 
-void character_print(const Character *c) {
-  
+int ft_strcp(char *s1, const char *s2) {
+  if (s1 == NULL || s2 == NULL) {
+    return 1;
+  }
+  int i = 0;
+  for (i = 0; *(s2 + i) != '\0'; i++) {
+    *(s1 + i) = *(s2 + i);
+  }
+  *(s1 + i) = '\0';
+
+  return 0;
 }
 
-void character_destroy(Character *c) {
+Player *player_create(const char *name) {
+  Player *player = malloc(sizeof *player);
+  if (player == NULL) {
+    return NULL;
+  }
+  player->name = malloc(ft_strlen(name) + 1);
+  if (player->name == NULL) {
+    free(player);
+    return NULL;
+  }
+  ft_strcp(player->name, name);
+  player->level = 1;
 
+  return player;
 }
 
-
+void player_destroy(Player *p) {
+  if (p == NULL) {
+    return;
+  }
+  free(p->name);
+  free(p);
+}
