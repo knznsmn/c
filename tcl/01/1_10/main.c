@@ -30,7 +30,8 @@ int main()
     }
     else if (c == '\b')
     {
-      putchar('\\');
+      c = '\\';
+      putchar(c);
       putchar('b');
     }
     else if (c == '\\')
