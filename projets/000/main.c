@@ -47,6 +47,7 @@ int main(int argc, char **argv) {
       return 1;
     }
     char *msg = "File successfully created.\n";
+    ft_puts(msg);
     write(fd, msg, ft_strlen(msg));
 
     close(fd);
