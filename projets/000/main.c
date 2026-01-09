@@ -11,13 +11,19 @@
 
 #include "headers.c"
 
-void hr(const Header *hr, int *f);
-void rw(const Header *hr, int *f, struct *t, char *s);
-
 typedef struct {
   char *name;
   char *info;
 } Detail;
+
+enum {
+  HEADER_WIDTH = 80
+};
+
+void padding(int *f, const int n);
+void newline(int *f);
+void row_line(const Header *hr, int *f);
+void row_mois(const Header *hr, int *f, Detail *t);
 
 int main(int argc, char **argv) {
 
@@ -40,34 +46,44 @@ int main(int argc, char **argv) {
     Header *header = create_hr(argv[1]);
     Detail name;
     Detail mail;
-    ft_strcpy(name.name, "By:");
-    ft_strcpy(name.info, "knznsmn");
-    ft_strcpy(mail.name, "Email");
-    ft_strcpy(mail.info, "mail@jccesar.com");
+    name.name = "By:";
+    name.info = "knznsmn";
+    mail.name = "Email:";
+    mail.info = "mail@jccesar.com";
 
-    hr(header, &fd);
-    hr(header, &fd);
-    rw(header, &fd, name, argv[1]);
-    rw(header, &fd, mail, argv[1]);
+void newline(int *f);
+    row_line(header, &fd);
+    row_mois(header, &fd, &name);
+    row_mois(header, &fd, &mail);
+    row_line(header, &fd);
 
-
-    
     destroy_hr(&header);
     close(fd);
   }
   return 0;
 }
 
+void padding(int *f, const int n) {
+  char space = ' ';
+  for (int i = 0; i < n; i++) {
+    write(*f, &space, 1);
+  }
+}
 
-void hr(const Header *hr, int *f) {
-  if (hr == NULL || f == -1) return;
+void newline(int *f) {
+  char c = '\n';
+  write(*f, &c, 1);
+}
 
-  int number_of_hr_lines = 75;
+void row_line(const Header *hr, int *f) {
+  if (hr == NULL || f == NULL) return;
+
+  int number_of_hr_lines = 80;
   if (ft_strcmp(hr->hr_extf, ".lua")) {
-    number_of_hr_lines = 73;
+    number_of_hr_lines = 78;
   }
   else if (ft_strcmp(hr->hr_extf, ".html")) {
-    number_of_hr_lines = 72;
+    number_of_hr_lines = 77;
   }
 
   write(*f, hr->hr_open, ft_strlen(hr->hr_open));
@@ -75,19 +91,33 @@ void hr(const Header *hr, int *f) {
     write(*f, hr->hr_line, ft_strlen(hr->hr_line));
   }
   write(*f, hr->hr_done, ft_strlen(hr->hr_done));
-  write(*f, '\n', 1);
+  newline(f);
+}
+void row_date(const Header *hr, const char *s) {
+  const char *ext = extract_ext(s);
+
 }
 
-void rw(const Header *hr, int *f, struct *t, char *s) {
-  if (hr == NULL || f == -1) return;
+void row_mois(const Header *hr, int *f, Detail *t) {
+  if (hr == NULL || f == NULL) return;
 
-  size_t total_spaces = 71;
+  size_t border_left_size = ft_strlen(hr->hr_open);
+  size_t border_righ_size = ft_strlen(hr->hr_done);
+  size_t borders_size = border_left_size + border_righ_size;
+  size_t total_spaces = HEADER_WIDTH - borders_size;
+
   size_t left_padding = 3;
   size_t left_columns = 9;
-  size_t right_column = total_spaces - left_padding - ft_strlen(t->info);
+  size_t left_col_pad = left_columns - ft_strlen(t->name);
+  size_t right_column = total_spaces - left_columns;
+  size_t right_col_pd = right_column - ft_strlen(t->info);
 
   write(*f, hr->hr_open, ft_strlen(hr->hr_open));
+  padding(f, left_padding);
   write(*f, t->name, ft_strlen(t->name));
+  padding(f, left_col_pad);
   write(*f, t->info, ft_strlen(t->info));
-
+  padding(f, right_col_pd);
+  write(*f, hr->hr_done, ft_strlen(hr->hr_done));
+  newline(f);
 }
