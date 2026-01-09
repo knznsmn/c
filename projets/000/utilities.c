@@ -75,7 +75,7 @@ char *extract_ext(char *s) {
   while (s[i] != '.') {
     i--;
   }
-  char *ext = malloc(len - i);
+  char *ext = malloc(len - i + 1);
 
   len = 0;
   while (s[i] != '\0') {
@@ -132,9 +132,9 @@ Header *create_hr(char *s) {
   }
 
   if (ft_strcmp(".lua", s)) {
-    ft_strcpy(hr->hr_open, "--[[");
-    ft_strcpy(hr->hr_done, "]]");
-    ft_strcpy(hr->hr_line, " ");
+    ft_strcpy(hr->hr_open, "--");
+    ft_strcpy(hr->hr_done, "--");
+    ft_strcpy(hr->hr_line, "-");
   }
   else if (ft_strcmp(".html", s)) {
     ft_strcpy(hr->hr_open, "<!--");
@@ -142,9 +142,9 @@ Header *create_hr(char *s) {
     ft_strcpy(hr->hr_line, "-");
   }
   else if (ft_strcmp(".gd", s) || (ft_strcmp(".py", s))) {
-    ft_strcpy(hr->hr_open, "\"\"\"");
-    ft_strcpy(hr->hr_done, "\"\"\"");
-    ft_strcpy(hr->hr_line, " ");
+    ft_strcpy(hr->hr_open, "#");
+    ft_strcpy(hr->hr_done, "#");
+    ft_strcpy(hr->hr_line, "#");
   }
   else if (ft_strcmp(".sh", s)) {
     ft_strcpy(hr->hr_open, ": '");
@@ -172,3 +172,11 @@ void destroy_hr(Header **hr) {
   *hr = NULL;
 }
 
+char *current() {
+  time_t now;
+  time(&now);
+  char *t = ctime(&now);
+  *(t + ft_strlen(t) - 1) = '\0';
+
+  return t;
+}
