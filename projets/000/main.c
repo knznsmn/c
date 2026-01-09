@@ -84,7 +84,6 @@ int main(int argc, char **argv) {
     row_line(header, &fd);
     newline(&fd);
     
-    ft_puts(date.info);
     free(file.name);
     free(file.exts);
     destroy_hr(&header);
