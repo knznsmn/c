@@ -18,12 +18,16 @@ int main(int argc, char **argv) {
   }
   else {
     Character *player = p_create(*(argv + 1));
-    if (player == NULL) {
-      return 1;
-    }
-
+    if (!player) return 1;
     p_state(player);
+  
+    Character *player_2 = p_clone(player); 
+    if (!player_2) return 1;
+
     p_wreck(&player);
+    p_state(player_2);
+
+    p_wreck(&player_2);
   }
 
   return 0;
