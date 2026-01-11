@@ -11,8 +11,10 @@ typedef struct {
   int mp;
 } Character;
 
+// int p_is_valid(const Character *p);
 Character *p_clone(const Character *src);
 Character *p_create(const char *name);
+// void p_init(Character *p);
 void p_state(const Character *p);
 void p_wreck(Character **p);
 
