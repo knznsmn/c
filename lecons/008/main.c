@@ -25,7 +25,6 @@ int main(int argc, char **argv) {
     if (!player_2) return 1;
 
     p_wreck(&player);
-    player.name = "NiceGame";
     p_state(player_2);
 
     p_wreck(&player_2);
