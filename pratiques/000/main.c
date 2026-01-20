@@ -18,8 +18,6 @@ struct IntArray {
   int num[];
 };
 
-size_t ft_strlen(char *s);
-int ft_atoi(char *s);
 void ints_init(struct IntArray *n);
 void ints_prnt(struct IntArray *n);
 
